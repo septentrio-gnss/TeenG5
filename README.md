@@ -1,1 +1,85 @@
-#TeenG5
+# TeenG5
+
+|mosaicG5 HAT| A GNSS HAT fOr Raspberry Pi|
+|------|-------|
+|Author|  [laekaz](https://github.com/laekaz)|
+|Maintainer| [Septentrio gnss github user](githubuser@septentrio.com)|
+|external website|   |
+|License| [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and [open source](https://www.oshwa.org/definition/) |
+|Avalable to purchase here:| |
+
+## Table of Content
+
+## Introduction to TeenG5
+### What is the TeenG5?
+### A carrier board for Teensy 4.1?
+### Can I buy it?
+
+#### Produce yourself
+##### Do I need to source special components for producing this board?
+
+
+
+### What is a mosaic-G5 module?
+The mosaic-G5 is a compact GNSS receiver from Septentrio, engineered for high reliability and precise positioning. It integrates the latest multi-band, multi-constellation GNSS technology, providing accurate positions while minimizing power consumption. The receiver can access signals from all major GNSS constellations, including GPS, Galileo, GLONASS, and BeiDou.
+
+#### Other mosaic-G5 versions
+Different versions of the mosaic-G5 are available to suit various applications, as summarized below:
+
+| Features     | [mosaic-G5 P1](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-g5-p1) | [mosaic-G5 P3](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3) | [mosaic-G5 P3H](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3H) |[mosaic-G5 P6](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P6) | [mosaic-G5 P8](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-g5-p8) |
+|--------------|--------------|--------------|---------------|---------------|---------------|
+| Functionality|High-precision positioning   |High-precision positioning |Positioning + Heading|Positioning + Heading | Positioning + Heading|
+| Use case     |Robotics (e.g robotic mowers), GIS devices |UAV, Commercial mowers, Industrial Robotics, Survey, Marine navigation | Marine navigation, Machine control, Autonomous vehicles,  Survey | Autonomous vehicles, Marine navigation, Machine control, Survey | High-end autonomous systems, Robotics, Marine navigation, Survey, Machine control |          
+| GNSS bands   | Triple-band  | Quad-band    | Quad-band     |Quad-band |Quad-band  |
+| RTK support  | Yes          | Yes          | Yes           |Yes       |Yes        |
+| Dual antenna |    No        |  No          | Yes           |Yes       |Yes        |
+| Heading      |     NO       |   No         | Yes           |Yes       |Yes        |
+
+
+
+### Who is Septentrio?
+<img src="pictures/Septentrio_Hex_logo.png" width="30%">
+
+Septentrio is a leading company that designs, manufactures and sells high precision and multi-frequency GPS/GNSS receivers for demanding applications. Septentrio products are used in different industries including automotive, marine, construction, rail, machine control, logistics, precision agriculture, geographic information systems (GIS), Unmanned aerial vehicles (UAVs), surveying, mapping and scientific development. Septentrio’s receivers constantly deliver accurate and precise GNSS positioning scalable to centimetre-level and designed to perform perfectly in challenging environments. 
+
+Septentrio's technology offers high accuracy and reliability thanks to advanced GNSS signal-processing algorithms as well as [Advanced interference Monitoring and Mitigation (AIM+)](https://www.septentrio.com/en/learn-more/advanced-positioning-technology/aim-anti-jamming-protection) This protects your application against jamming (RF interference) and spoofing (malicious attacks).
+
+For more information about Septentrio products go to [**https://www.septentrio.com/**](https://web.septentrio.com/GH-SSN-home).
+
+### Deliverables
+This project provides the following deliverables for system integrators and hardware designers developing solutions based on Septentrio's mosaic-G5 modules.
+
+|Files         |Description   |
+|--------------|--------------|
+|  []()   |KiCad project |
+| []() | KiCad layout |
+|  []()  |KiCad schematic |
+|    | Project schematic library |
+|    |mosaic symbol |
+|    |mosaic footprint |
+|    | mosaicG5 HAT Bill of Materials |
+### Is the project open-source?
+Yes, We made this open source so you can tinker, adapt, and create. If you are building your own robotics project, a spin-off device, or integrating GNSS into a larger system, this is a great starting point.
+
+Open source here means:
+* All files fully editable
+* Freedom to modify, remix, and innovate
+* You can sell your version. No -NC limitations
+* May require attribution
+* Build on our work, push it further, and even make money doing it
+
+More info about licensing can be found here: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and [open source](https://www.oshwa.org/definition/)
+
+## Disclaimer
+This project is **offered as-is**. The main interfaces have been tested, but the design has not been fully checked or approved by the author or Septentrio. You are responsible for how you use it in your own projects. For guidance on working with Septentrio’s GNSS mosaic-G5 modules, we suggest reaching out to Septentrio directly.
+
+Support website: https://www.septentrio.com/en/support
+### Documentation Sections
+
+This project provides two main documentation sections:
+
+- **[TeenG5 User Documentation](mosaicG5%20HAT%20User%20Documentation.md)**  
+  Contains information for users on how to install, configure, and use the mosaicG5 HAT.
+
+- **[TeenG5 Design Documentation](mosaicG5%20HAT%20Design%20Documentation.md)**  
+  Intended for hardware designers who want to understand, customize, or modify the reference design of the mosaicG5 HAT.
