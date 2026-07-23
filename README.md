@@ -10,14 +10,27 @@
 
 ## Table of Content
 
-## Introduction to TeenG5
-### What is the TeenG5?
-### A carrier board for Teensy 4.1?
+## What is TeenG5
+This is a compact carrier board that brings high precision GNSS (GPS) which integrates mosaic-G5 Septentrio's GNSS module with basic communications, allowing the system to receive signals from multiple GNSS constellations, such as GPS, Galileo, GLONASS, and BeiDo. The goal of the design is to simplify hardware prototyping and integration of the mosaic-G5 by taking advantage of the Teensy 4.1's high-performance microcontroller, extensive peripheral interfaces, and Arduino-compatible development ecosystem. This makes TeenG5 well suited for embedded applications such as robotics, autonomous vehicles, UAVs, precision agriculture, surveying, timing, and other systems that require low-latency GNSS processing without relying on an external computer.
+ 
+The board can also operate as a standalone device when powered through its USB connector.
+
+
+### What is the Teensy 4.1?
+The Teensy 4.1 is a compact, high-performance microcontroller development board based on the NXP i.MX RT1062 ARM Cortex-M7 processor running at 600 MHz. It offers 1 MB of RAM, 8 MB of onboard flash memory, a microSD card slot, USB host and device capabilities, Ethernet, and a wide range of digital, analog, and communication interfaces (UART, SPI, I²C, and CAN). Compatible with the Arduino IDE through Teensyduino software, it is well suited for robotics, real-time control,embedded systems, audio processing, data acquisition, and other performance-critical applications.
+
+
+### What is a carrier board for Teensy 4.1?
+A carrier board is a board that hosts a removable Teensy 4.1. The Teensy plugs into the board through two 24-pin headers and can be removed or replaced, while the carrier board integrates the Septentrio mosaic-G5 GNSS receiver, power management, and communication interfaces into a single embedded platform.
+
 ### Can I buy it?
 
 #### Produce yourself
+You can use the design files, Bill of Materials from this project and contact your manufacturing company for production. In this project we used [JLCPCB](https://jlcpcb.com/) for producing the PCB and assembling it. We used JLCPCB because of its competitive pricing and component availability.
+
 ##### Do I need to source special components for producing this board?
 
+Yes, Some components are not available through JLCPCB's standard parts library and must be supplied separately. however, if you are assembling the PCB by yourself, all components are available on DigiKey and clearly listed in the project's Bill of Materials. The mosaic GNSS module can be obtained from Digikey or directly from Septentrio. For larger production volumes, we recommend contacting the Septentrio sales team directly at [Septentrio Contact Page](https://www.septentrio.com/en/contact/ask-question)
 
 
 ### What is a mosaic-G5 module?
@@ -38,7 +51,7 @@ Different versions of the mosaic-G5 are available to suit various applications, 
 
 
 ### Who is Septentrio?
-<img src="pictures/Septentrio_Hex_logo.png" width="30%">
+<img src="/Pictures/Septentrio_Hex_logo.png" width="30%">
 
 Septentrio is a leading company that designs, manufactures and sells high precision and multi-frequency GPS/GNSS receivers for demanding applications. Septentrio products are used in different industries including automotive, marine, construction, rail, machine control, logistics, precision agriculture, geographic information systems (GIS), Unmanned aerial vehicles (UAVs), surveying, mapping and scientific development. Septentrio’s receivers constantly deliver accurate and precise GNSS positioning scalable to centimetre-level and designed to perform perfectly in challenging environments. 
 
@@ -78,8 +91,8 @@ Support website: https://www.septentrio.com/en/support
 
 This project provides two main documentation sections:
 
-- **[TeenG5 User Documentation](mosaicG5%20HAT%20User%20Documentation.md)**  
+- **[TeenG5 User Documentation](./TeenG5%20User%20Documentation.md)**  
   Contains information for users on how to install, configure, and use the mosaicG5 HAT.
 
-- **[TeenG5 Design Documentation](mosaicG5%20HAT%20Design%20Documentation.md)**  
+- **[TeenG5 Design Documentation](./TeenG5%20Design%20Documentation.md)**  
   Intended for hardware designers who want to understand, customize, or modify the reference design of the mosaicG5 HAT.
