@@ -161,20 +161,11 @@ Septentrio's RxTools is a Software which can be used to communicate to the mosai
 ### Serial communication
 A simple way to communicate with the mosaic-G5 receiver is to connect one of the UART, it offers 2 UARTs connections.
 
-* Both UART connections are  connected to the Raspberry-Pi for easie integration.
+* Both UART connections are  connected to the Teensy 4.1 for easie integration.
 
-### FTDI-connector
-An extra serial port is made available and can be used as an FTDI. FTDI can also be used with some Bluetooth devices. There is a large variety of FTDI devices which can help in communicating with the mosaic G5 HAT.
 
-* The UART2 connection of the mosaic is exposed via pin header on the board. This can be usuable to connect an FTDI converter(eg. serial to Bluetooth or TLL to RS232 converter)
 
-<img src="/pictures/FTDI_TTL.png" width="50%">
 
-TTL to USB connection
-
-<img src="/pictures/TLL_connection.png" width="50%">
-
-Serial connection of mosaic G5 HAT could be tested using PuTTY
 
 Default COM-Port settings are:
 |Parameter     |Value         |
@@ -195,8 +186,8 @@ The follwing LEDs are defined on the mosaicHAT
 |**LED**  |**Description**   |
 |-------|-------|
 |PWR    | Board State (ON/OFF)  |
-|GL1    | Conected to mosaic G5 and RPi GPIO1  |
-|GL2 | Connected to mosaic-G5 and RPi GPIO26   |
+|GL1    | Conected to mosaic G5 and Teensy 4.1 GPIO1  |
+|GL2 | Connected to mosaic-G5 and Teensy 4.1 GPIO26   |
 |PPS2 | Pulse Per Second  |
 |PPS1 | Pulse Per Second  |
 
@@ -272,71 +263,6 @@ For more information about the EVENT input functionality, see the **mosaic-G5 Re
 ### Python script
 
 ```
-import serial   # Library used for UART / serial communication
-import time     # Library used for implementing timing delays
 
-# Establish UART serial connection to the GNSS receiver
-serial_port = serial.Serial('/dev/serial0', 115200)
-
-# /dev/serial0 refers to the primary Raspberry Pi UART interface
-# 115200 baud is the default communication speed of the mosaic-G5 receiver
-
-# If using USB serial communication instead of UART, the device may appear as:
-# /dev/ttyACM0, /dev/ttyACM1, etc.
-# Available serial devices can be checked using:
-# dmesg | grep tty
-
-# If permission errors occur when accessing USB serial ports, run:
-# sudo chmod 666 /dev/ttyACM0
-
-time.sleep(1) # delay for serial connection time to be initialise properly
-
-serial_port.write(b'SSSSSSSSSSSSS\n') # Send multiple 'S' characters to place the mosaic-G5 into command mode
-
-time.sleep(0.1) # Short delay to ensure the command is processed
-
-# Enable continuous NMEA GGA message streaming once per second on COM1
-# For USB communication, replace COM1 with USB1 or USB2
-serial_port.write(b'sno, Stream1, COM1, GGA, sec1\n')
-
-time.sleep(0.1) # delay for reading incoming serial data
-
-while True:
-  
-    nmea_data_bytes = serial_port.readline()          # Read one complete line of incoming serial data from the receiver   
-    nmea_sentence = str(nmea_data_bytes.decode())      # Decode received byte data into a UTF-8 string    
-    nmea_sentence = nmea_sentence.rstrip()            # Remove newline and whitespace characters
-
-    # Check if the received NMEA sentence is a GNGGA position message
-    if (nmea_sentence.startswith('$GNGGA')):
-       
-        nmea_fields = [element.strip() for element in nmea_sentence.split(',')]      #separated NMEA fields with a comma into a list
-       
-        quality_indicator = int(nmea_fields[6])                                      #Get the NMEA quality indicator field
-       
-        if quality_indicator==0:                    # Quality indicator value of 0 means no valid GNSS position fix
-
-            print("No GPS Fix Available!")
-
-        else:
-            utc_time = float(nmea_fields[1])                 # Parse UTC time field from the NMEA GGA message
-            latitude = float(nmea_fields[2])*0.01            # Get latitude value in NMEA format
-            latitude_direction = nmea_fields[3]             # Get latitude hemisphere indicator (N or S)
-            longitude = float(nmea_fields[4])*0.01           # Get longitude value in NMEA format
-            longitude_direction = nmea_fields[5]             # Get longitude hemisphere indicator (E or W)
-            altitude = float(nmea_fields[9])                  # Get altitude above mean sea level           
-            altitude_unit = nmea_fields[10]                  # Get altitude unit, typically metres (M)
-
-            # Display parsed GNSS positioning information
-            print('UTC Time: ' + str(utc_time))
-            print(' Latitude: ' + str(latitude) + latitude_direction)
-            print(' Longitude: ' + str(longitude) + longitude_direction)
-            print(' Height: ' + str(altitude) + altitude_unit)  
-
-        # Delay before processing the next incoming message
-        time.sleep(0.1)
-    else:
-        continue         # Ignore non-GGA NMEA messages and continue listening
-serial_port.close()     # Close serial connection when the program terminates
 
 ```
