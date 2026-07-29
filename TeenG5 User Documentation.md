@@ -1,5 +1,20 @@
 # TeenG5 user documentation
 ## Table of Content
+* [TeenG5 Manufacturing and Assembly](#teeng5-manufacturing-and-assembly)
+    * [Elements to Provide When Manufacturing the Board](#elements-to-provide-when-manufacturing-the-board)
+    * [Ordering mosaic Module](#ordering-mosaic-module)
+* [General Interfaces of TeenG5](#general-interfaces-of-teeng5)
+* [Connecting to Teensy 4.1](#connecting-to-teensy-41)
+    * [Preparing Teensy 4.1](#preparing-teensy-41)
+    * [Arduino Example](#arduino-example)
+    * [GNSS Antenna](#gnss-antenna)
+        * [Single/Dual Antenna Mode](#singledual-antenna-mode)
+        * [Heading](#heading)
+    * [USB Communication](#usb-communication)
+    * [Serial Communication](#serial-communication)
+    * [Reset mosaic-G5](#reset-mosaic-g5)
+    * [PPS Output](#pps-output)
+    * [Events](#events)
 
 ## TeenG5 Manufacturing and Assembly
 
@@ -58,7 +73,7 @@ To enable communication between TeenG5 and Teensy 4.1, you should make sure requ
 
 <img src="Pictures/serial.png" width="40%">
 
-### Python script
+### Arduino Example
 
 ```
 // Stores one complete NMEA sentence

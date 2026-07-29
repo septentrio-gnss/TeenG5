@@ -1,6 +1,6 @@
 # TeenG5 Design Documentation
 
-This section describes the design principles and architecture of the mosaicG5 HAT in depth.
+This section describes the design principles and architecture of the Teensy 4.1 in depth.
 
 ## Table of Content
 
@@ -93,15 +93,15 @@ The following figure shows the antenna section of the schematic.
 The first U.FL antenna J2 is directly connected to a 0 ohm resistor and the first MMCX antenna J6 is also connected to a 0 ohm resistor and they are both connected to the main mosaic-G5 pin.
 The DC voltage of the main antenna connection is supplied from the mosaic-G5's VANT pin.
 
-The input impedance of the RF line is 50 Ohms. Thus, antenna trace should have a characteristic impedance (Zo) of 50 Ohms. To determine the proper impedance for the antenna traces for RF signal routing, calculations were performed with the [JLCPCB Impedance Calculator](https://jlcpcb.com/pcb-impedance-calculator)(recommended if you are using JLCPCB as manufacturer) or can use freeware [Saturn PCB toolkit](https://saturnpcb.com/pcb_toolkit). The trace parameters used in the calculation were based on the specifications of the selected PCB manufacturer. Calculations determined that a trace width of 0.1425 mm would provide an impedance of 50Ω to the RF antenna traces.
+The input impedance of the RF line is 50 Ohms. Thus, antenna trace should have a characteristic impedance (Zo) of 50 Ohms. To determine the proper impedance for the antenna traces for RF signal routing, calculations were performed with the [JLCPCB Impedance Calculator](https://jlcpcb.com/pcb-impedance-calculator)(recommended if you are using JLCPCB as manufacturer) or can use freeware [Saturn PCB toolkit](https://saturnpcb.com/pcb_toolkit). The trace parameters used in the calculation were based on the specifications of the selected PCB manufacturer. Calculations determined that a trace width of 0.1725 mm would provide an impedance of 50Ω to the RF antenna traces.
 
 Having right characteristic impedance ensures reduced signal reflections in the opposite direction thus higher quality of signals. For uniform lines, characteristic impedance is dependent on trace length.
 
-<img src="" width="50%">
+<img src="Pictures/RF_JLCPCB.png" width="50%">
 
 It is also important to stitch vias every few millimeters around the RF line for good ground coherence. Ground stitching vias help to protect line from interference.
 
-<img src="" width="50%">
+<img src="Pictures/stitching.png" width="50%">
 
 For more details on antennas and interference please refer to mosaic-G5's [Hardware Manual](https://www.septentrio.com/en/products/gnss-receivers?f%5B0%5D=type%3A604).
 
@@ -131,9 +131,9 @@ A common mode filter with ESD protection for USB 2.0 (ECMF02-2AMX6) is used with
 
 As USB uses a differential pair for data transmission, differential pair impedance (Zdifferential) should be tuned to avoid reflections. Zdifferential needs to be around 90 Ohms. The same [JLCPCB impedance calculator](https://jlcpcb.com/pcb-impedance-calculator) was used to determine the dimensions of the differential signal pair that will carry the USB signals. 
 
-The parameters used for this calculation were the same as those used for the RF antenna traces: the materials, thickness of copper finish, and number of layers of the PCB manufacturer that was selected. The results of this calculation determined that a width of 0.1468 mm would provide the necessary impedance of 90 Ω to the differential signal pair. 
+The parameters used for this calculation were the same as those used for the RF antenna traces: the materials, thickness of copper finish, and number of layers of the PCB manufacturer that was selected. The results of this calculation determined that a width of 0.1707 mm would provide the necessary impedance of 90 Ω to the differential signal pair. 
 
-<img src="Pictures/" width="60%">
+<img src="Pictures/Dif_JLCPCB.png" width="60%">
 
 The following figure hights USB parts highlighted. GND vias were stitched around the USB connector and lines to ensure good ground coherence.
 
