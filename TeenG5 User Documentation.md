@@ -1,7 +1,6 @@
 # TeenG5 user documentation
 ## Table of Content
 
-
 ## TeenG5 Manufacturing and Assembly
 
 This project includes all the files required to manufacture the TeenG5, including the reference design, PCB layout, and Bill of Materials (BOM). You can use these files with your preferred PCB manufacturer. For this project, we used [JLCPCB](https://jlcpcb.com/) for both PCB fabrication and assembly due to their competitive pricing and fast production times.
@@ -30,53 +29,214 @@ You can order the mosaic-G5 from Digi-Key, or you can contact Septentrio at www.
 ## General interfaces of TeenG5
 The board exposes the following interfaces:
 
-<img src="/Pictures/Interfaces_1.png" width="50%">
+<img src="Pictures/Interfaces_1.png" width="50%">
 
-<img src="/Pictures/Interfaces_2.png" width="50%">
+<img src="Pictures/Interfaces_2.png" width="50%">
 
 
 ## Connecting to Teensy 4.1
-mosaicG5 HAT can be easily attached to Raspberry Pi as shown here:
+Teensy 4.1 can be easily attached to TeenG5 as shown here:
 
-<img src="/Pictures/TeenG5_1.jpg" width="40%">
+<img src="Pictures/TeenG5_1.jpg" width="40%">
 
-<img src="/Pictures/TeenG5_2.jpg" width="40%">
+<img src="Pictures/TeenG5_2.jpg" width="40%">
 
 ### Preparing Teensy 4.1
-To enable communication between mosaicG5 HAT and Raspberry Pi (RPi), you should make sure required serial communication settings are configured.
+Arduino IDE was used to promgram the TeenG5 and Teensy 4.1
 
-Raspberry Pi OS
-* To enable RPi serial communication, go to terminal and run:
+To enable communication between TeenG5 and Teensy 4.1, you should make sure required settings configured:
 
-```sudo raspi-config```
+* Pick the correct board,
 
-* Select **Interfacing Options**, then from the menu select Serial Port.
-You will get the question:
-would you like a login shell to be accessible over serial?
-select **No**. Another prompt will ask:
-would you like serial port hardware to be enabled?
-select **Yes**.
+<img src="Pictures/Interfaces_1.png" width="40%">
 
-* Reboot the Raspberry Pi for the changes to take effect.
+* pick USB serial,
 
-```sudo reboot```
+<img src="Pictures/USB.png" width="40%">
 
-* After reboot check UART devices
+* and pick the correct serial COM port.
 
-```ls -l /dev/serial* ```
+<img src="Pictures/serial.png" width="40%">
 
-The output should be similar to:
+### Python script
 
-```/dev/serial0 -> ttyAMA0```
+```
+// Stores one complete NMEA sentence
+String nmeaSentence;
 
-```/dev/serial1 -> ttyS0```
+// Time when the last character was received
+unsigned long lastReceiveTime = 0;
 
-On the RPi 4 
-serial0 maps to GPIO 14 and 15 which are connected to UART1 of the mosaic-G5. 
+// Keeps track of whether the receiver is currently missing
+bool receiverMissing = true;
 
-To communicate with UART1, use:
+void setup()
+{
+  // Start USB serial communication
+  Serial.begin(115200);
 
-```/dev/serial0```
+  // Wait for the Serial Monitor (maximum 5 seconds)
+  while (!Serial && millis() < 5000);
+
+  // Start communication with the GNSS receiver
+  Serial1.begin(115200);
+
+  // Allow the receiver to boot
+  delay(1000);
+
+  // Send several 'S' characters to enter command mode
+  Serial1.print("SSSSSSSSSSSSSS\n");
+  delay(100);
+
+  // Enable GGA messages every second
+  Serial1.print("sno, Stream1, COM1, GGA, sec1\n");
+  delay(100);
+
+  Serial.println();
+  Serial.println("GNSS Monitor Started");
+  Serial.println("--------------------");
+}
+
+void loop()
+{
+  // Read all available serial characters
+  while (Serial1.available())
+  {
+    // Receiver is present
+    receiverMissing = false;
+
+    // Remember when the latest data arrived
+    lastReceiveTime = millis();
+
+    // Read one character
+    char c = Serial1.read();
+
+    // Ignore carriage returns
+    if (c == '\r')
+      continue;
+
+    // Complete sentence received
+    if (c == '\n')
+    {
+      processGGA(nmeaSentence);
+
+      // Clear buffer for next sentence
+      nmeaSentence = "";
+    }
+    else
+    {
+      // Build the NMEA sentence
+      nmeaSentence += c;
+    }
+  }
+
+  // No serial data received for more than 3 seconds
+  if (millis() - lastReceiveTime > 3000)
+  {
+    if (!receiverMissing)
+    {
+      Serial.println("--------------------------------");
+      Serial.println("No Receiver Detected");
+      Serial.println("--------------------------------");
+      Serial.println();
+
+      receiverMissing = true;
+    }
+  }
+}
+
+//----------------------------------------------------
+// Process GGA sentence
+//----------------------------------------------------
+void processGGA(String sentence)
+{
+  // Ignore sentences that are not GGA
+  if (!(sentence.startsWith("$GNGGA") ||
+        sentence.startsWith("$GPGGA")))
+    return;
+
+  // Array to store the comma-separated fields
+  String field[20];
+
+  int index = 0;
+  int last = 0;
+
+  // Split sentence into fields
+  for (int i = 0; i < sentence.length(); i++)
+  {
+    if (sentence[i] == ',')
+    {
+      field[index++] = sentence.substring(last, i);
+      last = i + 1;
+
+      if (index >= 20)
+        break;
+    }
+  }
+
+  // Store final field
+  field[index] = sentence.substring(last);
+
+  // Read GPS quality indicator
+  int quality = field[6].toInt();
+
+  // Receiver connected but no valid position
+  if (quality == 0)
+  {
+    Serial.println("--------------------------------");
+    Serial.println("No Position");
+    Serial.print("Quality Indicator: ");
+    Serial.println(quality);
+    Serial.println();
+
+    return;
+  } else{
+
+    // Read UTC time
+      String utc = field[1];
+
+      // Read latitude (NMEA format)
+      float latitude = field[2].toFloat();
+      String latDir = field[3];
+
+      // Read longitude (NMEA format)
+      float longitude = field[4].toFloat();
+      String lonDir = field[5];
+
+      // Read altitude
+      float altitude = field[9].toFloat();
+      String altitudeUnit = field[10];
+
+      // Display results
+      Serial.println("--------------------------------");
+
+      Serial.print("UTC Time: ");
+      Serial.println(utc);
+
+      Serial.print("Latitude: ");
+      Serial.print(latitude, 4);
+      Serial.print(" ");
+      Serial.println(latDir);
+
+      Serial.print("Longitude: ");
+      Serial.print(longitude, 4);
+      Serial.print(" ");
+      Serial.println(lonDir);
+
+      Serial.print("Altitude: ");
+      Serial.print(altitude);
+      Serial.print(" ");
+      Serial.println(altitudeUnit);
+
+      Serial.print("Quality Indicator: ");
+      Serial.println(quality);
+
+  }
+
+  Serial.println();
+}
+
+```
 
 ### GNSS Antenna
 
@@ -88,11 +248,10 @@ GNSS antennas are available in different form factors and performance levels, ea
 
 For testing the board we used Tallysman antenna:
 
-<img src="/Pictures/antenna.jpg" width="30%">
+<img src="Pictures/antenna.jpg" width="30%">
 
 **NOTE**: The VANT (Antenna voltage) pad of mosaic-G5 module is directly connected to the 5 Volts after the ideal diodes so the power is from the Vin of the Teensy 4.1 or VBUS. The internal bias control circuit detects overcurrent
 conditions (>150mA) and protects the module in case of short circuit. According to mosaic-G5 hardware manual, VANT accepts **3V** to **5.5V** power supply.
-
 
 
 #### Single/Dual Antenna Mode
@@ -146,15 +305,15 @@ You can use mosaic-G5 P3H for heading but **it's essential to connect the two an
 
 RxTools can be used to monitor the heading.
 
-<img src="/pictures/Heading.png" width="50%">
+<img src="Pictures/Heading.png" width="50%">
 
 ### USB communication
 
-The mosaicG5 HAT via USB provides 2 USB serial ports that can be used with [Septentrio's RxTools](https://www.septentrio.com/en/products/gps-gnss-receiver-software/rxtools?__cf_chl_f_tk=9FZ303SoP8.kFwcI0yDpIdeAKHOC4U8.QrWtEdxvYuM-1783077901-1.0.1.1-mCYy7N0I0ynlIXaYiBgby9w0JgOXAPiThTtNe7ESnbY#resources).
+The TeenG5 via USB, provides 2 USB serial ports that can be used with [Septentrio's RxTools](https://www.septentrio.com/en/products/gps-gnss-receiver-software/rxtools?__cf_chl_f_tk=9FZ303SoP8.kFwcI0yDpIdeAKHOC4U8.QrWtEdxvYuM-1783077901-1.0.1.1-mCYy7N0I0ynlIXaYiBgby9w0JgOXAPiThTtNe7ESnbY#resources).
 
-Septentrio's RxTools is a Software which can be used to communicate to the mosaic-G5 HAT and can be downloaded free of charge from the [Septentrio support site](https://www.septentrio.com/en/products/gps-gnss-receiver-software/rxtools#resources). Once you have downloaded it you can use Septentrio's RxControl and Data Link which can communicate with the receiver over a serial-port connection: select Serial Connection option when opening the connection to the receiver.
+Septentrio's RxTools is a Software which can be used to communicate to the TeenG5 and can be downloaded free of charge from the [Septentrio support site](https://www.septentrio.com/en/products/gps-gnss-receiver-software/rxtools#resources). Once you have downloaded it you can use Septentrio's RxControl and Data Link which can communicate with the receiver over a serial-port connection: select Serial Connection option when opening the connection to the receiver.
 
-<img src="/pictures/rxcontrol.png" width="50%">
+<img src="Pictures/rxcontrol.png" width="50%">
 
 **NOTE:** That currently there's no RxTools release for RPi (ARM architecture). Thus, RxTools should be used on a regular PC.
 
@@ -162,9 +321,6 @@ Septentrio's RxTools is a Software which can be used to communicate to the mosai
 A simple way to communicate with the mosaic-G5 receiver is to connect one of the UART, it offers 2 UARTs connections.
 
 * Both UART connections are  connected to the Teensy 4.1 for easie integration.
-
-
-
 
 
 Default COM-Port settings are:
@@ -176,57 +332,17 @@ Default COM-Port settings are:
 |stop bits | 1    |
 |flow control | none|
 
-<img src="/pictures/putty.png" width="50%">
-
 Can use comment ```sno, Stream1, COM2, GGA, sec1``` to output GGA data on the UART2
-
-### LED indicators
-The follwing LEDs are defined on the mosaicHAT
-
-|**LED**  |**Description**   |
-|-------|-------|
-|PWR    | Board State (ON/OFF)  |
-|GL1    | Conected to mosaic G5 and Teensy 4.1 GPIO1  |
-|GL2 | Connected to mosaic-G5 and Teensy 4.1 GPIO26   |
-|PPS2 | Pulse Per Second  |
-|PPS1 | Pulse Per Second  |
-
-<img src="/pictures/LED_indicators.png" width="50%">
-
-PPSO clock could be tuned using **setPPSParameters** command. While GPLEDs default mode is PVTLED, it could be configured to work in different modes (PVTLED, DIFFCORLED and TRACKLED) using setLEDMode command. Refer to the Hardware Manual for blinking behaviour of each mode. Both General Purpose LEDs (GL1 and GL2) could be directly controlled by Raspberry Pi GPIO.
-
-Just for illustration, the following python script runs GL1 and GL2 in alternate blinking mode. It is up to users to customize those LEDs as convenient for their applications.
-
-```
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
-from time import sleep # Import the sleep function from the time module
-
-GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
-
-# Set pins 6 &26 to be output pins and set their initial values to low (off)
-GPIO.setup(26, GPIO.OUT, initial=GPIO.LOW) 
-GPIO.setup(6, GPIO.OUT, initial=GPIO.LOW) 
-
-while True: # Run forever
- GPIO.output(26, GPIO.HIGH) # Turn 26 on
- GPIO.output(6, GPIO.LOW) # Turn 26 off
- sleep(1) # Sleep for 1 second
- GPIO.output(26, GPIO.LOW) # Turn 26 off
- GPIO.output(6, GPIO.HIGH) # Turn 6 on
- sleep(1) # Sleep for 1 second
- ```
-
 
 ### Reset mosaic-G5
 
-mosaic-G5 could be forced to reset from Raspberry Pi. The RST_IN pin of mosaic-G5 is directly connected to RPi GPIO 17 (Pin 11 in physical header).
+mosaic-G5 could be forced to reset from Teensy 4.1. The RST_IN pin of mosaic-G5 is directly connected to Pin 34 in physical header.
 
 The RST_IN pin is active negative, which means mosaic will be in RESET mode when RST_IN is low (GND). The pin is internally debounced (pull-up) so if pin is left unconnected (floating) the module will not enter RESET mode.
 
-Initially, the RPi GPIO pins are set to INPUT mode. As the RPi input line have high impedance, RST_IN will be floating. This means mosaicHAT board could run without issues initially even if GPIO 17 is not set to HIGH (while kept in input mode). However, it is not recommended to rely on the GPIO initial state. Users should drive HIGH to GPIO 17 for the stability of their applications.
+Initially, the Teensy 4.1 GPIO pins are set to INPUT mode. As the Teensy 4.1 input line have high impedance, RST_IN will be floating. This means TeenG5 board could run without issues initially even if Pin 34 is not set to HIGH (while kept in input mode). However, it is not recommended to rely on the GPIO initial state. Users should drive HIGH to Pin 34 for the stability of their applications.
 
-To reset module, a LOW pulse, not shorter than 1 microsecond, should be driven to GPIO 17.
+To reset module, a LOW pulse, not shorter than 1 microsecond, should be driven to Teensy 4.1.
 
 ### PPS output
 
@@ -236,33 +352,28 @@ The receiver is able to generate an x-pulse-per-second (xPPS) signal aligned wit
 
 Polarity, frequency and pulse width of PPSO could be configured by **setPPSParameters** command.
 
-<img src="/pictures/Eve&PPSO.png" width="50%">
+<img src="Pictures/Eve&PPS.png" width="50%">
 
 By default, **PPSO2 is disabled**. It can be enabled and configured in **RxControl**:.
 
-<img src="/pictures/PPS2.PNG" width="50%">
-<img src="/pictures/PPS2_.png" width="25%">
+<img src="Pictures/PPS2.PNG" width="50%">
+
+<img src="Pictures/PPS2_.png" width="25%">
 
 
-Both PPS Output operate at 3.3 V logic levels. PPSO1 and PPSO2 are directly connected to an indicator LED. 
+Both PPS Output operate at 3.3 V logic levels. PPSO1 and PPSO2 are directly connected to Teensy 4.1 GPIOs. 
 
 More information on the definition of PPS output or on how to configure the PPS parameters can be found in the mosaic-G5 reference guide. You can download this one from [Septentrio site](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3H).
 
 ### Events
-EVENTs could be tested directly on mosaicG5 HAT board by connecting PPS Output to one of the EVENTs pins. Note that this works with a single wire because they share the same GND. Here PPSO_1 is connected to EVENTB, with PPS interval set to 1 sec.
+EVENTs could be tested directly on TeenG5 board by connecting PPS Output to one of the EVENTs pins. Note that this works with a single wire because they share the same GND. Here PPSO_1 is connected to EVENTB, with PPS interval set to 1 sec.
 
-<img src="/pictures/event_console.png" width="40%">
-<img src="/pictures/event.png" width="30%">
+<img src="Pictures/event_console.png" width="40%">
+<img src="Pictures/event.png" width="30%">
 
-To monitor Events you could use Rxcontrol, clicking on the expert console. once you have connected an output to the event pin you will see the data being recieved on the pin.
+To monitor Events you could use Rxcontrol, clicking on the expert console. Once you have connected an output to the event pin you will see the data being recieved on the pin.
 
 **Note:** The **EVENT** inputs use **3.3 V logic levels**. Applying higher voltages may damage the receiver.
 
 For more information about the EVENT input functionality, see the **mosaic-G5 Reference Guide**, available from the [Septentrio website](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3H).
 
-### Python script
-
-```
-
-
-```
