@@ -55,7 +55,7 @@ A bottom and top 3D view of the TeeenG5, featuring electronic components.
 <img src="Pictures/3D_view_2.png" width="80%">
 
 ## mosaic-G5 Pinout
-The Septentrio mosaic-G5 is the core of the mosaicG5 HAT board. It is a 22.8 x 16.4 mm compact GNSS module of 94 pins with a weight of 2.2 g. Complete information on mosaic-G5 connections can be found in the [Hardware Manual](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3H).
+The Septentrio mosaic-G5 is the core of the TeenG5 board. It is a 22.8 x 16.4 mm compact GNSS module of 94 pins with a weight of 2.2 g. Complete information on mosaic-G5 connections can be found in the [Hardware Manual](https://www.septentrio.com/en/products/gnss-receivers/gnss-receiver-modules/mosaic-G5-P3H).
 
 <img src="Pictures/pinout.png" width="50%">
 
@@ -152,7 +152,7 @@ TeenG5 has 1 LED which is a power indicator.
 
 
 ## Clock Frequency Reference
-mosaic-G5 module embeds an internal Temperature Compensated Crystal Oscillator (TCXO) for frequency reference. The module can either use its internal TCXO frequency reference or an external frequency reference. In mosaicG5 HAT's case, internal reference is used.
+mosaic-G5 module embeds an internal Temperature Compensated Crystal Oscillator (TCXO) for frequency reference. The module can either use its internal TCXO frequency reference or an external frequency reference. In TeenG5's case, internal reference is used.
 
 Following are Hardware Manual instructions for using internal TCXO.
 

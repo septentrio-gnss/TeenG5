@@ -1,6 +1,6 @@
 # TeenG5
 
-|mosaicG5 HAT| A GNSS HAT fOr Raspberry Pi|
+|TeenG5| Carrier board for Teensy 4.1|
 |------|-------|
 |Author|  [laekaz](https://github.com/laekaz)|
 |Maintainer| [Septentrio gnss github user](githubuser@septentrio.com)|
@@ -70,7 +70,7 @@ This project provides the following deliverables for system integrators and hard
 |    | Project schematic library |
 |    |mosaic symbol |
 |    |mosaic footprint |
-|    | mosaicG5 HAT Bill of Materials |
+|    | TeenG5 Bill of Materials |
 ### Is the project open-source?
 Yes, We made this open source so you can tinker, adapt, and create. If you are building your own robotics project, a spin-off device, or integrating GNSS into a larger system, this is a great starting point.
 
@@ -92,7 +92,7 @@ Support website: https://www.septentrio.com/en/support
 This project provides two main documentation sections:
 
 - **[TeenG5 User Documentation](./TeenG5%20User%20Documentation.md)**  
-  Contains information for users on how to install, configure, and use the mosaicG5 HAT.
+  Contains information for users on how to install, configure, and use the TeenG5.
 
 - **[TeenG5 Design Documentation](./TeenG5%20Design%20Documentation.md)**  
-  Intended for hardware designers who want to understand, customize, or modify the reference design of the mosaicG5 HAT.
+  Intended for hardware designers who want to understand, customize, or modify the reference design of the TeenG5.
