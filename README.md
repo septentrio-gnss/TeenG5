@@ -6,7 +6,7 @@
 |Maintainer| [Septentrio gnss github user](githubuser@septentrio.com)|
 |external website| https://github.com/septentrio-gnss/TeenG5  |
 |License| [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and [open source](https://www.oshwa.org/definition/) |
-|Avalable to purchase here:| |
+
 
 ## Table of Content
 
