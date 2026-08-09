@@ -80,7 +80,7 @@ This project provides the following deliverables for system integrators and hard
 |  [G5_Teensy.kicad_pro](./Kicad/TeenG5/G5_Teensy.kicad_pro)   |KiCad project |
 | [G5_Teensy.kicad_pcb](./Kicad/TeenG5/G5_Teensy.kicad_pcb) | KiCad layout |
 |  [G5_Teensy.kicad_sch](./Kicad/TeenG5/G5_Teensy.kicad_sch)  |KiCad schematic |
-| [teenG5 3D.step](./Kicad/TeenG5%203D/teenG5%203D.step)   | TeenG5 3D|
+| [TeenG5 3D.step](./Kicad/TeenG5%203D/teenG5%203D.step)   | TeenG5 3D|
 | [mosaic-G5.STEP](./Kicad/mosaci-G5/mosaic-G5.STEP)  |mosaic-G5 3D |
 | [LGA54_MOSAIC-MINI_SEP.kicad_mod](./Kicad/mosaci-G5/LGA54_MOSAIC-MINI_SEP.kicad_mod)  |mosaic-G5 footprint |
 |  [BOM](./Kicad/BOM.xlsx) | TeenG5 Bill of Materials |
