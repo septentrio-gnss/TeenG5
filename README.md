@@ -4,11 +4,25 @@
 |------|-------|
 |Author|  [laekaz](https://github.com/laekaz)|
 |Maintainer| [Septentrio gnss github user](githubuser@septentrio.com)|
-|external website|   |
+|external website| https://github.com/septentrio-gnss/TeenG5  |
 |License| [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and [open source](https://www.oshwa.org/definition/) |
 |Avalable to purchase here:| |
 
 ## Table of Content
+
+* [What is TeenG5](#what-is-teeng5)
+    * [What is the Teensy 4.1?](#what-is-the-teensy-41)
+    * [What is a Carrier Board for Teensy 4.1?](#what-is-a-carrier-board-for-teensy-41)
+    * [Can I Buy It?](#can-i-buy-it)
+        * [Produce Yourself](#produce-yourself)
+            * [Do I Need to Source Special Components for Producing This Board?](#do-i-need-to-source-special-components-for-producing-this-board)
+    * [What is a mosaic-G5 Module?](#what-is-a-mosaic-g5-module)
+        * [Other mosaic-G5 Versions](#other-mosaic-g5-versions)
+    * [Who is Septentrio?](#who-is-septentrio)
+    * [Deliverables](#deliverables)
+    * [Is the Project Open-Source?](#is-the-project-open-source)
+* [Disclaimer](#disclaimer)
+* [Documentation Sections](#documentation-sections)
 
 ## What is TeenG5
 This is a compact carrier board that brings high precision GNSS (GPS) which integrates mosaic-G5 Septentrio's GNSS module with basic communications, allowing the system to receive signals from multiple GNSS constellations, such as GPS, Galileo, GLONASS, and BeiDo. The goal of the design is to simplify hardware prototyping and integration of the mosaic-G5 by taking advantage of the Teensy 4.1's high-performance microcontroller, extensive peripheral interfaces, and Arduino-compatible development ecosystem. This makes TeenG5 well suited for embedded applications such as robotics, autonomous vehicles, UAVs, precision agriculture, surveying, timing, and other systems that require low-latency GNSS processing without relying on an external computer.
@@ -87,7 +101,7 @@ More info about licensing can be found here: [CC BY-SA 4.0](https://creativecomm
 This project is **offered as-is**. The main interfaces have been tested, but the design has not been fully checked or approved by the author or Septentrio. You are responsible for how you use it in your own projects. For guidance on working with Septentrio’s GNSS mosaic-G5 modules, we suggest reaching out to Septentrio directly.
 
 Support website: https://www.septentrio.com/en/support
-### Documentation Sections
+## Documentation Sections
 
 This project provides two main documentation sections:
 
