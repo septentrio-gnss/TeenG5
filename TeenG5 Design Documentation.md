@@ -1,6 +1,6 @@
 # TeenG5 Design Documentation
 
-This section describes the design principles and architecture of the Teensy 4.1 in depth.
+This section describes the design principles and architecture of the TeenG5 in depth.
 
 ## Table of Content
 
@@ -118,12 +118,12 @@ Serial communication between the mosaic-G5 and the Teensy 4.1 is implemented by 
 <img src="Pictures/Teensy4.1.png" width="60%">
 
 ## Reset Input
-The nRST_IN pin of mosaic-G5 is directly connected to Teensy 4.1 (Pin 32 in physical header). Refer to [Reset mosaic](#reset-mosaic-G5) in user documentation for more details.
+The N_RST pin of mosaic-G5 is directly connected to Teensy 4.1 (Pin 32 in physical header). Refer to [Reset mosaic](#reset-mosaic-G5) in user documentation for more details.
 
 ## USB-C
 To use mosaic-G5 as a USB device, the following pins of the module should be connected to a USB-C connector:
 
-<img src="Pictures/USB.png" width="60%">
+<img src="Pictures/USB.png" width="80%">
 
 A common mode filter with ESD protection for USB 2.0 (ECMF02-2AMX6) is used with USB_DP (D+) and USB_DN (D-) for protection. The filter suppresses electromagnetic interference (EMI) on high-speed differential USB lines.
 

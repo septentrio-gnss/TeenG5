@@ -27,7 +27,7 @@ For the PCB only:
 * The PCB design, you will need to export gerber and drill files 
 
 For assembly:
-* Bill of Materials (BOM), the list of components used in the project with their reference designators. For this project check [BOM]().
+* Bill of Materials (BOM), the list of components used in the project with their reference designators. For this project check [BOM](/Kicad/BOM.xlsx).
 * Component Placement List (CPL), this file contains the exact position of each component on the board (X,Y and rotation). CPL is exported from KiCad however, you need to check with the manufacturer services to ensure the right placement for components.
 
 ### Ordering mosaic module
@@ -63,11 +63,11 @@ To enable communication between TeenG5 and Teensy 4.1, you should make sure requ
 
 * Pick the correct board,
 
-<img src="Pictures/Interfaces_1.png" width="40%">
+<img src="Pictures/Interfaces_1.png" width="50%">
 
 * pick USB serial,
 
-<img src="Pictures/USB.png" width="40%">
+<img src="Pictures/USB.png" width="60%">
 
 * and pick the correct serial COM port.
 
@@ -263,7 +263,7 @@ GNSS antennas are available in different form factors and performance levels, ea
 
 For testing the board we used Tallysman antenna:
 
-<img src="Pictures/antenna.jpg" width="30%">
+<img src="Pictures/antenna.jpg" width="20%">
 
 **NOTE**: The VANT (Antenna voltage) pad of mosaic-G5 module is directly connected to the 5 Volts after the ideal diodes so the power is from the Vin of the Teensy 4.1 or VBUS. The internal bias control circuit detects overcurrent
 conditions (>150mA) and protects the module in case of short circuit. According to mosaic-G5 hardware manual, VANT accepts **3V** to **5.5V** power supply.
@@ -273,7 +273,7 @@ conditions (>150mA) and protects the module in case of short circuit. According 
 
 The receiver can operate in either **single-antenna** or **dual-antenna** mode. Changing the frontend mode only takes effect after a reboot.
 
-**Single-antenna mode**
+* **Single-antenna mode**
 
 Run:
 
@@ -294,7 +294,7 @@ Finally, reboot the receiver:
 exeResetReceiver, Hard, none
 ```
 
-**Dual-antenna mode**
+* **Dual-antenna mode**
 Run:
 
 ```
@@ -328,7 +328,7 @@ The TeenG5 via USB, provides 2 USB serial ports that can be used with [Septentri
 
 Septentrio's RxTools is a Software which can be used to communicate to the TeenG5 and can be downloaded free of charge from the [Septentrio support site](https://www.septentrio.com/en/products/gps-gnss-receiver-software/rxtools#resources). Once you have downloaded it you can use Septentrio's RxControl and Data Link which can communicate with the receiver over a serial-port connection: select Serial Connection option when opening the connection to the receiver.
 
-<img src="Pictures/rxcontrol.png" width="50%">
+<img src="Pictures/rxcontrol.png" width="70%">
 
 **NOTE:** That currently there's no RxTools release for RPi (ARM architecture). Thus, RxTools should be used on a regular PC.
 
@@ -351,11 +351,11 @@ Can use comment ```sno, Stream1, COM2, GGA, sec1``` to output GGA data on the UA
 
 ### Reset mosaic-G5
 
-mosaic-G5 could be forced to reset from Teensy 4.1. The RST_IN pin of mosaic-G5 is directly connected to Pin 34 in physical header.
+mosaic-G5 could be forced to reset from Teensy 4.1. The N_RST pin of mosaic-G5 is directly connected to Pin 34 in physical header.
 
-The RST_IN pin is active negative, which means mosaic will be in RESET mode when RST_IN is low (GND). The pin is internally debounced (pull-up) so if pin is left unconnected (floating) the module will not enter RESET mode.
+The N_RST pin is active negative, which means mosaic will be in RESET mode when N_RST is low (GND). The pin is internally debounced (pull-up) so if pin is left unconnected (floating) the module will not enter RESET mode.
 
-Initially, the Teensy 4.1 GPIO pins are set to INPUT mode. As the Teensy 4.1 input line have high impedance, RST_IN will be floating. This means TeenG5 board could run without issues initially even if Pin 34 is not set to HIGH (while kept in input mode). However, it is not recommended to rely on the GPIO initial state. Users should drive HIGH to Pin 34 for the stability of their applications.
+Initially, the Teensy 4.1 GPIO pins are set to INPUT mode. As the Teensy 4.1 input line have high impedance, N_RST will be floating. This means TeenG5 board could run without issues initially even if Pin 34 is not set to HIGH (while kept in input mode). However, it is not recommended to rely on the GPIO initial state. Users should drive HIGH to Pin 34 for the stability of their applications.
 
 To reset module, a LOW pulse, not shorter than 1 microsecond, should be driven to Teensy 4.1.
 
@@ -384,7 +384,7 @@ More information on the definition of PPS output or on how to configure the PPS 
 EVENTs could be tested directly on TeenG5 board by connecting PPS Output to one of the EVENTs pins. Note that this works with a single wire because they share the same GND. Here PPSO_1 is connected to EVENTB, with PPS interval set to 1 sec.
 
 <img src="Pictures/event_console.png" width="40%">
-<img src="Pictures/event.png" width="30%">
+<img src="Pictures/events.png" width="30%">
 
 To monitor Events you could use Rxcontrol, clicking on the expert console. Once you have connected an output to the event pin you will see the data being recieved on the pin.
 

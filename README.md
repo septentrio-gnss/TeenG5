@@ -13,8 +13,7 @@
 * [What is TeenG5](#what-is-teeng5)
     * [What is the Teensy 4.1?](#what-is-the-teensy-41)
     * [What is a Carrier Board for Teensy 4.1?](#what-is-a-carrier-board-for-teensy-41)
-    * [Can I Buy It?](#can-i-buy-it)
-        * [Produce Yourself](#produce-yourself)
+    * [Produce Yourself?](#produce-yourself)
             * [Do I Need to Source Special Components for Producing This Board?](#do-i-need-to-source-special-components-for-producing-this-board)
     * [What is a mosaic-G5 Module?](#what-is-a-mosaic-g5-module)
         * [Other mosaic-G5 Versions](#other-mosaic-g5-versions)
@@ -37,9 +36,7 @@ The Teensy 4.1 is a compact, high-performance microcontroller development board 
 ### What is a carrier board for Teensy 4.1?
 A carrier board is a board that hosts a removable Teensy 4.1. The Teensy plugs into the board through two 24-pin headers and can be removed or replaced, while the carrier board integrates the Septentrio mosaic-G5 GNSS receiver, power management, and communication interfaces into a single embedded platform.
 
-### Can I buy it?
-
-#### Produce yourself
+### Produce yourself?
 You can use the design files, Bill of Materials from this project and contact your manufacturing company for production. In this project we used [JLCPCB](https://jlcpcb.com/) for producing the PCB and assembling it. We used JLCPCB because of its competitive pricing and component availability.
 
 ##### Do I need to source special components for producing this board?
@@ -65,7 +62,7 @@ Different versions of the mosaic-G5 are available to suit various applications, 
 
 
 ### Who is Septentrio?
-<img src="/Pictures/Septentrio_Hex_logo.png" width="30%">
+<img src="Pictures/Septentrio_Hex_logo.png" width="30%">
 
 Septentrio is a leading company that designs, manufactures and sells high precision and multi-frequency GPS/GNSS receivers for demanding applications. Septentrio products are used in different industries including automotive, marine, construction, rail, machine control, logistics, precision agriculture, geographic information systems (GIS), Unmanned aerial vehicles (UAVs), surveying, mapping and scientific development. Septentrio’s receivers constantly deliver accurate and precise GNSS positioning scalable to centimetre-level and designed to perform perfectly in challenging environments. 
 
@@ -78,13 +75,13 @@ This project provides the following deliverables for system integrators and hard
 
 |Files         |Description   |
 |--------------|--------------|
-|  []()   |KiCad project |
-| []() | KiCad layout |
-|  []()  |KiCad schematic |
-|    | Project schematic library |
-|    |mosaic symbol |
-|    |mosaic footprint |
-|    | TeenG5 Bill of Materials |
+|  [G5_Teensy.kicad_pro](./Kicad/TeenG5/G5_Teensy.kicad_pro)   |KiCad project |
+| [G5_Teensy.kicad_pcb](./Kicad/TeenG5/G5_Teensy.kicad_pcb) | KiCad layout |
+|  [G5_Teensy.kicad_sch](./Kicad/TeenG5/G5_Teensy.kicad_sch)  |KiCad schematic |
+| [teenG5 3D.step](./Kicad/TeenG5%203D/teenG5%203D.step)   | TeenG5 3D|
+| [mosaic-G5.STEP](./Kicad/mosaci-G5/mosaic-G5.STEP)  |mosaic-G5 3D |
+| [LGA54_MOSAIC-MINI_SEP.kicad_mod](./Kicad/mosaci-G5/LGA54_MOSAIC-MINI_SEP.kicad_mod)  |mosaic-G5 footprint |
+|  [BOM](./Kicad/BOM.xlsx) | TeenG5 Bill of Materials |
 ### Is the project open-source?
 Yes, We made this open source so you can tinker, adapt, and create. If you are building your own robotics project, a spin-off device, or integrating GNSS into a larger system, this is a great starting point.
 
