@@ -1,5 +1,7 @@
 # TeenG5
 
+<img src="Pictures/TeenG5 logo.png" width="80%">
+
 |TeenG5| Carrier board for Teensy 4.1|
 |------|-------|
 |Author|  [laekaz](https://github.com/laekaz)|
