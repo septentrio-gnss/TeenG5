@@ -9,6 +9,8 @@
 |external website| https://github.com/septentrio-gnss/TeenG5  |
 |License| [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and [open source](https://www.oshwa.org/definition/) |
 
+<img src="Pictures/TeenG5.jpg" width="40%">
+
 
 ## Table of Content
 
