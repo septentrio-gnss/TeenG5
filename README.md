@@ -28,13 +28,13 @@
 * [Documentation Sections](#documentation-sections)
 
 ## What is TeenG5
-This is a compact carrier board that brings high precision GNSS (GPS) which integrates mosaic-G5 Septentrio's GNSS module with basic communications, allowing the system to receive signals from multiple GNSS constellations, such as GPS, Galileo, GLONASS, and BeiDo. The goal of the design is to simplify hardware prototyping and integration of the mosaic-G5 by taking advantage of the Teensy 4.1's high-performance microcontroller, extensive peripheral interfaces, and Arduino-compatible development ecosystem. This makes TeenG5 well suited for embedded applications such as robotics, autonomous vehicles, UAVs, precision agriculture, surveying, timing, and other systems that require low-latency GNSS processing without relying on an external computer.
+This is a compact carrier board that brings high precision GNSS (GPS) which integrates mosaic-G5 Septentrio's GNSS module with basic communications, allowing the system to receive signals from multiple GNSS constellations, such as GPS, Galileo, GLONASS, and BeiDo. The goal of the design is to simplify hardware prototyping and integration of the mosaic-G5 by taking advantage of the [Teensy 4.1's](https://www.pjrc.com/store/teensy41.html) high-performance microcontroller, extensive peripheral interfaces, and Arduino-compatible development ecosystem. This makes TeenG5 well suited for embedded applications such as robotics, autonomous vehicles, UAVs, precision agriculture, surveying, timing, and other systems that require low-latency GNSS processing without relying on an external computer.
  
 The board can also operate as a standalone device when powered through its USB connector.
 
 
 ### What is the Teensy 4.1?
-The Teensy 4.1 is a compact, high-performance microcontroller development board based on the NXP i.MX RT1062 ARM Cortex-M7 processor running at 600 MHz. It offers 1 MB of RAM, 8 MB of onboard flash memory, a microSD card slot, USB host and device capabilities, Ethernet, and a wide range of digital, analog, and communication interfaces (UART, SPI, I²C, and CAN). Compatible with the Arduino IDE through Teensyduino software, it is well suited for robotics, real-time control,embedded systems, audio processing, data acquisition, and other performance-critical applications.
+The [Teensy 4.1](https://www.pjrc.com/store/teensy41.html) is a compact, high-performance microcontroller development board based on the NXP i.MX RT1062 ARM Cortex-M7 processor running at 600 MHz. It offers 1 MB of RAM, 8 MB of onboard flash memory, a microSD card slot, USB host and device capabilities, Ethernet, and a wide range of digital, analog, and communication interfaces (UART, SPI, I²C, and CAN). Compatible with the Arduino IDE through Teensyduino software, it is well suited for robotics, real-time control,embedded systems, audio processing, data acquisition, and other performance-critical applications.
 
 
 ### What is a carrier board for Teensy 4.1?
