@@ -1,6 +1,9 @@
 # TeenG5
 
-<img src="Pictures/TeenG5 logo.png" width="80%">
+<p align="center">
+<img src="Pictures/TeenG5 logo.png" width="30%">
+<img src="Pictures/TeenG5_ad.png" width="80%">
+</p>p
 
 |TeenG5| Carrier board for Teensy 4.1|
 |------|-------|
